@@ -86,11 +86,6 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.heroContent}>
-            <div className={styles.heroBadge}>
-              <span className={styles.heroBadgeDot} />
-              Built on Sui &middot; Powered by AI
-            </div>
-
             <h1 className={styles.heroTitle}>
               Algorithmic trading,{" "}
               <span className={styles.heroTitleAccent}>democratized.</span>
