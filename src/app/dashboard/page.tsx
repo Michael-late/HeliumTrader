@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import TradingViewWidget from "@/components/TradingViewWidget";
 import styles from "./dashboard.module.css";
 
 // --- Types ---
@@ -97,6 +98,7 @@ export default function DashboardPage() {
   const [progress, setProgress] = useState(0);
   const [simDone, setSimDone] = useState(false);
   const [trades, setTrades] = useState<Trade[]>([]);
+  const [tvSymbol, setTvSymbol] = useState("BINANCE:SUIUSDT");
   const [livePrice, setLivePrice] = useState(3.847);
   const [priceDir, setPriceDir] = useState<"up" | "down" | null>(null);
   const [portfolio, setPortfolio] = useState(10247.83);
@@ -106,6 +108,7 @@ export default function DashboardPage() {
   const tradeIdRef = useRef(200);
   const historyRef = useRef<HTMLDivElement>(null);
 
+  // candles kept for potential future use
   const candles = useMemo(() => generateCandles(60, livePrice), [activeTimeframe, strategy]);
   const equityCurve = useMemo(() => generateEquityCurve(40, winRate / 100), [simDone, strategy]);
 
@@ -303,7 +306,19 @@ export default function DashboardPage() {
             <div className={styles.chartPanel}>
               <div className={styles.chartHeader}>
                 <div className={styles.chartPair}>
-                  <span className={styles.chartPairName}>SUI / USDC</span>
+                  <select
+                    className={styles.symbolSelect}
+                    value={tvSymbol}
+                    onChange={(e) => setTvSymbol(e.target.value)}
+                    aria-label="Select trading pair"
+                  >
+                    <option value="BINANCE:SUIUSDT">SUI / USDT</option>
+                    <option value="BINANCE:BTCUSDT">BTC / USDT</option>
+                    <option value="BINANCE:ETHUSDT">ETH / USDT</option>
+                    <option value="BINANCE:SOLUSDT">SOL / USDT</option>
+                    <option value="BINANCE:BNBUSDT">BNB / USDT</option>
+                    <option value="BINANCE:AVAXUSDT">AVAX / USDT</option>
+                  </select>
                   <span
                     className={`${styles.chartPairPrice} ${
                       priceDir === "up" ? styles.priceUp : priceDir === "down" ? styles.priceDown : ""
@@ -313,7 +328,7 @@ export default function DashboardPage() {
                   </span>
                   <span className={`badge ${priceDir === "down" ? "badge-loss" : "badge-profit"}`}>
                     {priceDir === "down" ? "-" : "+"}
-                    {(Math.abs(Math.random() * 0.15 + 0.01)).toFixed(2)}%
+                    {(Math.abs(0.15 + 0.01)).toFixed(2)}%
                   </span>
                 </div>
                 <div className={styles.chartTimeframes}>
@@ -329,26 +344,18 @@ export default function DashboardPage() {
                 </div>
               </div>
               <div className={styles.chartBody}>
-                <div className={styles.chartPlaceholder}>
-                  {candles.map((candle, i) => {
-                    const bodyTop = scaleY(Math.max(candle.open, candle.close));
-                    const bodyBottom = scaleY(Math.min(candle.open, candle.close));
-                    const bodyHeight = Math.max(bodyTop - bodyBottom, 2);
-                    const wickTop = scaleY(candle.high) - bodyTop;
-                    const wickBottom = bodyBottom - scaleY(candle.low);
-                    return (
-                      <div
-                        key={i}
-                        className={`${styles.candlestick} ${candle.green ? styles.candleGreen : styles.candleRed}`}
-                        style={{ animationDelay: `${i * 10}ms` }}
-                      >
-                        <div className={styles.candleWick} style={{ height: `${Math.max(wickTop, 0)}px` }} />
-                        <div className={styles.candleBody} style={{ height: `${bodyHeight}px` }} />
-                        <div className={styles.candleWick} style={{ height: `${Math.max(wickBottom, 0)}px` }} />
-                      </div>
-                    );
-                  })}
-                </div>
+                <TradingViewWidget
+                  symbol={tvSymbol}
+                  interval={
+                    activeTimeframe === "1m" ? "1" :
+                    activeTimeframe === "5m" ? "5" :
+                    activeTimeframe === "15m" ? "15" :
+                    activeTimeframe === "1H" ? "60" :
+                    activeTimeframe === "4H" ? "240" : "D"
+                  }
+                  theme="dark"
+                  height={380}
+                />
               </div>
             </div>
 

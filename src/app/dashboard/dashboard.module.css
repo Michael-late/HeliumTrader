@@ -273,6 +273,31 @@
   flex: 1;
   position: relative;
   padding: 0;
+  min-height: 380px;
+  overflow: hidden;
+}
+
+/* Symbol selector */
+.symbolSelect {
+  appearance: none;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 5px 28px 5px 10px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 3.5L5 6.5L8 3.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color var(--transition-fast);
+}
+
+.symbolSelect:hover,
+.symbolSelect:focus {
+  border-color: var(--border-hover);
+  outline: none;
 }
 
 /* Placeholder chart with candlestick animation */

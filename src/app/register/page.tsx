@@ -4,10 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import { useAuth } from "@/context/AuthContext";
 import styles from "./register.module.css";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +37,7 @@ export default function RegisterPage() {
     setLoading(true);
     // Simulate registration — replace with real auth logic
     await new Promise((res) => setTimeout(res, 1400));
+    login(email, name);
     setLoading(false);
     router.push("/dashboard");
   };

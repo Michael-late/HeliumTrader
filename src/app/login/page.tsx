@@ -4,10 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import { useAuth } from "@/context/AuthContext";
 import styles from "./login.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,6 +27,7 @@ export default function LoginPage() {
     setLoading(true);
     // Simulate auth — replace with real auth logic
     await new Promise((res) => setTimeout(res, 1200));
+    login(email);
     setLoading(false);
     router.push("/dashboard");
   };
