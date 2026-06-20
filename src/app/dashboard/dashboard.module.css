@@ -730,7 +730,7 @@
 }
 
 .strategySelect option {
-  background-color: #0a0a0a;
+  background-color: var(--bg-secondary);
   color: var(--text-primary);
   font-weight: 500;
   padding: 8px;
