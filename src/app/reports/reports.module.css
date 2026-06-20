@@ -140,6 +140,70 @@
   white-space: nowrap;
 }
 
+.kindTag {
+  color: var(--text-accent);
+  border-color: var(--border-accent);
+  background: rgba(var(--accent-primary-rgb), 0.08);
+}
+
+.deleteBtn {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  background: transparent;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: color var(--transition-base), border-color var(--transition-base);
+}
+
+.deleteBtn:hover:not(:disabled) {
+  color: var(--color-loss);
+  border-color: var(--color-loss);
+}
+
+.deleteBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.toggleBtn {
+  margin-top: 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-accent);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.toggleBtn:hover {
+  text-decoration: underline;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 64px 24px;
+  border: 1px dashed var(--border-hover);
+  border-radius: var(--radius-lg);
+}
+
+.emptyTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.emptyText {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  max-width: 420px;
+  margin: 0 auto 20px;
+}
+
 /* Metrics */
 .metricRow {
   display: grid;

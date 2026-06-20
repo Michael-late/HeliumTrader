@@ -5,6 +5,7 @@ import useSWR from "swr";
 import Navbar from "@/components/Navbar";
 import SimulatedChart, { type Candle } from "@/components/SimulatedChart";
 import TickerSearch from "@/components/TickerSearch";
+import EodReview, { type EodPayload } from "@/components/EodReview";
 import { fetchKlines, fetchTicker, fetchSpotTickers, type CryptoMarket } from "@/lib/bybit";
 import { evaluateSignal, type StrategyId, type StrategyParams } from "@/lib/strategy";
 import {
@@ -386,6 +387,48 @@ export default function PaperTrading() {
   const curParams = params[strategy];
   const pnlUp = totalPnl >= 0;
 
+  // Snapshot the current paper session into the EOD review payload. Captured at
+  // click time so the AI review reflects the latest equity, positions & trades.
+  const buildEodPayload = useCallback<() => EodPayload>(() => {
+    const trades = paper?.trades ?? [];
+    const sells = trades.filter((t) => t.side === "SELL");
+    const strategies = Array.from(
+      new Set(
+        trades
+          .filter((t) => t.source === "strategy" && t.strategy)
+          .map((t) => strategyLabels[t.strategy as StrategyId] ?? (t.strategy as string))
+      )
+    );
+    return {
+      market,
+      equity,
+      cash: paper?.cashBalance ?? 0,
+      holdingsValue,
+      startingBalance: paper?.startingBalance ?? 100000,
+      totalPnl,
+      positions: (paper?.positions ?? []).map((p) => {
+        const mark = prices[p.symbol] ?? p.avgEntry;
+        return {
+          symbol: p.symbol,
+          qty: p.qty,
+          avgEntry: p.avgEntry,
+          mark,
+          unrealizedPnl: (mark - p.avgEntry) * p.qty,
+        };
+      }),
+      tradeStats: {
+        total: trades.length,
+        buys: trades.filter((t) => t.side === "BUY").length,
+        sells: sells.length,
+        realizedPnl: sells.reduce((a, t) => a + t.realizedPnl, 0),
+        wins: sells.filter((t) => t.realizedPnl > 0).length,
+        losses: sells.filter((t) => t.realizedPnl < 0).length,
+        autoTrades: trades.filter((t) => t.source === "strategy").length,
+        strategies,
+      },
+    };
+  }, [paper, prices, market, equity, holdingsValue, totalPnl]);
+
   return (
     <>
       <Navbar />
@@ -588,6 +631,12 @@ export default function PaperTrading() {
                 <p className={styles.empty}>No trades yet.</p>
               )}
             </div>
+
+            {/* AI end-of-day review */}
+            <EodReview
+              marketLabel={market === "crypto" ? "Crypto" : "Stocks"}
+              buildPayload={buildEodPayload}
+            />
           </div>
 
           {/* Sidebar */}

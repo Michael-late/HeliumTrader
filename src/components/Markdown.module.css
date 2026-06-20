@@ -1,0 +1,75 @@
+.md {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.p {
+  margin: 0 0 12px;
+}
+
+.md > .p:last-child,
+.md > .ul:last-child,
+.md > .ol:last-child {
+  margin-bottom: 0;
+}
+
+.h2 {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 18px 0 8px;
+}
+
+.h2:first-child,
+.h3:first-child {
+  margin-top: 0;
+}
+
+.h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 14px 0 6px;
+}
+
+.strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ul,
+.ol {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.li {
+  line-height: 1.55;
+}
+
+.ul .li {
+  list-style: none;
+  position: relative;
+  padding-left: 14px;
+}
+
+.ul .li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-primary, var(--text-tertiary));
+}
+
+.ol .li {
+  list-style: decimal;
+}
