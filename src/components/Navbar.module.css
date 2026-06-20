@@ -12,7 +12,7 @@
 }
 
 .navbar.scrolled {
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--nav-scrolled-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom-color: var(--border-primary);
@@ -88,12 +88,37 @@
 }
 
 /* Actions */
-.actions {
+  .actions {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
-}
+  }
+
+  .themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1px solid var(--border-primary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  }
+  .themeToggle:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  background: var(--bg-card);
+  }
+  .themeToggle svg {
+  transition: transform var(--transition-spring);
+  }
+  .themeToggle:hover svg {
+  transform: rotate(15deg);
+  }
 
 /* User menu */
 .userMenu {

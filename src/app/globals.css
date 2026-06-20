@@ -76,6 +76,73 @@
   --transition-base:   220ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow:   380ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-spring: 480ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Surfaces tuned per-theme (white in dark, dark in light) */
+  --on-accent:        #ffffff;
+  --btn-solid-bg:     #ffffff;
+  --btn-solid-text:   #000000;
+  --btn-solid-hover:  #e5e5e5;
+  --control-fill:     #ffffff;
+  --track-bg:         rgba(255, 255, 255, 0.15);
+  --nav-scrolled-bg:  rgba(0, 0, 0, 0.85);
+}
+
+/* ============================================
+   Light theme overrides
+   ============================================ */
+[data-theme="light"] {
+  /* Core */
+  --bg-primary:    #ffffff;
+  --bg-secondary:  #f6f7f9;
+  --bg-tertiary:   #eef1f5;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #f3f5f8;
+
+  /* Accent */
+  --accent-primary:     #2563eb;
+  --accent-primary-rgb: 37, 99, 235;
+  --accent-hover:       #1d4ed8;
+
+  /* Status (slightly deeper for contrast on white) */
+  --color-profit:     #16a34a;
+  --color-profit-rgb: 22, 163, 74;
+  --color-loss:       #dc2626;
+  --color-loss-rgb:   220, 38, 38;
+  --color-warning:    #d97706;
+  --color-neutral:    #6b7280;
+
+  /* Text */
+  --text-primary:   #111418;
+  --text-secondary: #565d68;
+  --text-tertiary:  #9aa1ab;
+  --text-accent:    #2563eb;
+
+  /* Borders */
+  --border-primary: rgba(15, 23, 42, 0.10);
+  --border-hover:   rgba(15, 23, 42, 0.22);
+  --border-accent:  rgba(37, 99, 235, 0.40);
+
+  /* Shadows */
+  --shadow-sm:   0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md:   0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-lg:   0 8px 24px rgba(15, 23, 42, 0.10);
+  --shadow-xl:   0 16px 48px rgba(15, 23, 42, 0.12);
+  --shadow-glow: 0 0 24px rgba(37, 99, 235, 0.14);
+  --shadow-glow-profit: 0 0 20px rgba(22, 163, 74, 0.14);
+
+  /* Glass */
+  --glass-bg:     rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-shadow: 0 8px 32px rgba(15, 23, 42, 0.10);
+
+  /* Theme-tuned surfaces */
+  --on-accent:        #ffffff;
+  --btn-solid-bg:     #111418;
+  --btn-solid-text:   #ffffff;
+  --btn-solid-hover:  #2a2f37;
+  --control-fill:     #111418;
+  --track-bg:         rgba(15, 23, 42, 0.18);
+  --nav-scrolled-bg:  rgba(255, 255, 255, 0.85);
 }
 
 /* ---------- Reset ---------- */
@@ -99,6 +166,7 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 a { color: inherit; text-decoration: none; }
@@ -145,11 +213,11 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.15; font-weight: 700; letter-spacing: -0
 }
 
 .btn-primary {
-  background: #fff;
-  color: #000;
+  background: var(--btn-solid-bg);
+  color: var(--btn-solid-text);
 }
 .btn-primary:hover {
-  background: #e5e5e5;
+  background: var(--btn-solid-hover);
 }
 
 .btn-secondary {
@@ -214,13 +282,13 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.15; font-weight: 700; letter-spacing: -0
   appearance: none;
   width: 100%;
   height: 3px;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--track-bg);
   border-radius: var(--radius-full);
   outline: none;
   cursor: pointer;
 }
 .slider::-webkit-slider-runnable-track {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--track-bg);
   border-radius: var(--radius-full);
   height: 3px;
 }
@@ -229,28 +297,28 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.15; font-weight: 700; letter-spacing: -0
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #ffffff;
+  background: var(--control-fill);
   cursor: pointer;
   transition: all var(--transition-fast);
   margin-top: -5.5px;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+  box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.15);
 }
 .slider::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 0 3px rgba(255,255,255,0.15);
+  box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.22);
 }
 .slider::-moz-range-track {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--track-bg);
   border-radius: var(--radius-full);
   height: 3px;
 }
 .slider::-moz-range-thumb {
   width: 14px; height: 14px;
   border-radius: 50%;
-  background: #ffffff;
+  background: var(--control-fill);
   cursor: pointer;
   border: none;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+  box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.15);
 }
 
 /* ---------- Badge ---------- */

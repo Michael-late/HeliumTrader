@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 import styles from "./Navbar.module.css";
 
 const publicLinks = [
@@ -24,6 +25,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -97,6 +99,35 @@ export default function Navbar() {
         </div>
 
         <div className={styles.actions}>
+          <button
+            className={styles.themeToggle}
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? (
+              // Sun icon — click to go light
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9" r="3.5" stroke="currentColor" strokeWidth="1.4" />
+                <path
+                  d="M9 1.5V3M9 15v1.5M3 9H1.5M16.5 9H15M4.4 4.4L3.3 3.3M14.7 14.7l-1.1-1.1M4.4 13.6l-1.1 1.1M14.7 3.3l-1.1 1.1"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                />
+              </svg>
+            ) : (
+              // Moon icon — click to go dark
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <path
+                  d="M15.5 10.6A6.5 6.5 0 017.4 2.5a6.5 6.5 0 108.1 8.1z"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+          </button>
           {user ? (
             <div className={styles.userMenu} ref={dropdownRef}>
               <button
