@@ -60,33 +60,17 @@ export default function RegisterPage() {
     <>
       <Navbar />
       <div className={styles.page}>
-        <div className={styles.glow} />
-
         <div className={styles.card}>
-          <div className={styles.logoMark}>
-            <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
-              <path
-                d="M14 2L26 8V20L14 26L2 20V8L14 2Z"
-                stroke="url(#reg-logo)"
-                strokeWidth="2"
-                fill="none"
-              />
-              <path
-                d="M14 8L20 11V17L14 20L8 17V11L14 8Z"
-                fill="url(#reg-logo)"
-                opacity="0.7"
-              />
-              <defs>
-                <linearGradient id="reg-logo" x1="2" y1="2" x2="26" y2="26">
-                  <stop stopColor="#3b82f6" />
-                  <stop offset="1" stopColor="#8b5cf6" />
-                </linearGradient>
-              </defs>
-            </svg>
+          <div className={styles.header}>
+            <div className={styles.logoMark} aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
+                <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.6" />
+                <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="currentColor" opacity="0.8" />
+              </svg>
+            </div>
+            <h1 className={styles.title}>Create account</h1>
+            <p className={styles.subtitle}>Start trading smarter with HeliumTrader</p>
           </div>
-
-          <h1 className={styles.title}>Create account</h1>
-          <p className={styles.subtitle}>Start trading smarter with HeliumTrader</p>
 
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className={styles.field}>

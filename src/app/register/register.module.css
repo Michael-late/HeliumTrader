@@ -3,97 +3,86 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--nav-height) + 32px) 24px 40px;
-  position: relative;
-  overflow: hidden;
-}
-
-.glow {
-  position: absolute;
-  top: -5%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 700px;
-  height: 500px;
-  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.06) 50%, transparent 70%);
-  pointer-events: none;
+  padding: calc(var(--nav-height) + 32px) 24px 48px;
 }
 
 .card {
   width: 100%;
-  max-width: 440px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-xl);
-  padding: 40px;
-  box-shadow: var(--shadow-xl);
-  animation: fadeInUp 0.5s ease-out forwards;
-  position: relative;
-  z-index: 1;
+  max-width: 400px;
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.header {
+  margin-bottom: 32px;
 }
 
 .logoMark {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  width: 40px;
+  height: 40px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-hover);
   border-radius: var(--radius-lg);
-  margin: 0 auto 24px;
+  margin-bottom: 24px;
+  color: var(--text-secondary);
 }
 
 .title {
-  font-size: 1.75rem;
-  font-weight: 800;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: var(--text-primary);
-  text-align: center;
   letter-spacing: -0.03em;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .subtitle {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  text-align: center;
-  margin-bottom: 32px;
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  font-weight: 400;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .label {
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-secondary);
-  letter-spacing: 0.01em;
 }
 
 .input {
   background: var(--bg-tertiary) !important;
+  border-color: var(--border-primary) !important;
 }
 
+.input:focus {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: none !important;
+}
+
+/* Password strength */
 .strengthBar {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .strengthTrack {
-  flex: 1;
   display: flex;
-  gap: 4px;
+  gap: 3px;
+  flex: 1;
 }
 
 .strengthSegment {
@@ -105,8 +94,8 @@
 
 .strengthLabel {
   font-size: 0.75rem;
-  font-weight: 600;
-  min-width: 40px;
+  font-weight: 500;
+  width: 36px;
   text-align: right;
   transition: color var(--transition-base);
 }
@@ -114,48 +103,44 @@
 .error {
   font-size: 0.8125rem;
   color: var(--color-loss);
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.15);
   border-radius: var(--radius-md);
-  padding: 10px 14px;
+  padding: 9px 12px;
 }
 
 .terms {
   font-size: 0.8125rem;
   color: var(--text-tertiary);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .termsLink {
-  color: var(--accent-hover);
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
   transition: color var(--transition-fast);
 }
 
-.termsLink:hover {
-  color: var(--text-primary);
-}
+.termsLink:hover { color: var(--text-primary); }
 
 .submitBtn {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   font-size: 0.9375rem;
-  margin-top: 4px;
-  gap: 8px;
 }
 
 .spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid rgba(0, 0, 0, 0.3);
+  border-top-color: #000;
   border-radius: 50%;
-  animation: spin 0.7s linear infinite;
+  animation: spin 0.65s linear infinite;
   display: inline-block;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .divider {
   display: flex;
@@ -178,15 +163,13 @@
 .switchText {
   text-align: center;
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
 }
 
 .switchLink {
-  color: var(--accent-hover);
-  font-weight: 600;
+  color: var(--text-primary);
+  font-weight: 500;
   transition: color var(--transition-fast);
 }
 
-.switchLink:hover {
-  color: var(--text-primary);
-}
+.switchLink:hover { color: var(--text-secondary); }

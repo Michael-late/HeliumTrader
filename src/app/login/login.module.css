@@ -3,83 +3,55 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--nav-height) + 40px) 24px 40px;
-  position: relative;
-  overflow: hidden;
-}
-
-.glow {
-  position: absolute;
-  top: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.glowSecondary {
-  position: absolute;
-  bottom: 10%;
-  right: 10%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
-  pointer-events: none;
+  padding: calc(var(--nav-height) + 32px) 24px 48px;
 }
 
 .card {
   width: 100%;
-  max-width: 420px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-xl);
-  padding: 40px;
-  box-shadow: var(--shadow-xl);
-  animation: fadeInUp 0.5s ease-out forwards;
-  position: relative;
-  z-index: 1;
+  max-width: 380px;
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.header {
+  margin-bottom: 32px;
 }
 
 .logoMark {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  width: 40px;
+  height: 40px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-hover);
   border-radius: var(--radius-lg);
-  margin: 0 auto 24px;
+  margin-bottom: 24px;
 }
 
 .title {
-  font-size: 1.75rem;
-  font-weight: 800;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: var(--text-primary);
-  text-align: center;
   letter-spacing: -0.03em;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .subtitle {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  text-align: center;
-  margin-bottom: 32px;
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  font-weight: 400;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .labelRow {
@@ -90,55 +62,55 @@
 
 .label {
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-secondary);
-  letter-spacing: 0.01em;
 }
 
 .input {
   background: var(--bg-tertiary) !important;
+  border-color: var(--border-primary) !important;
+}
+
+.input:focus {
+  border-color: rgba(255,255,255,0.2) !important;
+  box-shadow: none !important;
 }
 
 .forgotLink {
   font-size: 0.8125rem;
-  color: var(--accent-hover);
+  color: var(--text-tertiary);
   transition: color var(--transition-fast);
 }
 
-.forgotLink:hover {
-  color: var(--text-primary);
-}
+.forgotLink:hover { color: var(--text-primary); }
 
 .error {
   font-size: 0.8125rem;
   color: var(--color-loss);
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.15);
   border-radius: var(--radius-md);
-  padding: 10px 14px;
+  padding: 9px 12px;
 }
 
 .submitBtn {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   font-size: 0.9375rem;
   margin-top: 4px;
-  gap: 8px;
 }
 
 .spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
   border-radius: 50%;
-  animation: spin 0.7s linear infinite;
+  animation: spin 0.65s linear infinite;
   display: inline-block;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .divider {
   display: flex;
@@ -161,15 +133,13 @@
 .switchText {
   text-align: center;
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
 }
 
 .switchLink {
-  color: var(--accent-hover);
-  font-weight: 600;
+  color: var(--text-primary);
+  font-weight: 500;
   transition: color var(--transition-fast);
 }
 
-.switchLink:hover {
-  color: var(--text-primary);
-}
+.switchLink:hover { color: var(--text-secondary); }

@@ -99,19 +99,15 @@ export default function PricingPage() {
     <>
       <Navbar />
       <main className={styles.page}>
-        <div className={styles.bgGlow} />
 
         {/* Header */}
         <section className={styles.header}>
           <p className={styles.eyebrow}>Pricing</p>
-          <h1 className={styles.title}>
-            Simple, transparent pricing
-          </h1>
+          <h1 className={styles.title}>Simple, transparent pricing</h1>
           <p className={styles.subtitle}>
-            Start for free. Upgrade when you need more. No hidden fees, no lock-in.
+            Start for free. Upgrade when you need more. No hidden fees.
           </p>
 
-          {/* Toggle */}
           <div className={styles.toggle}>
             <span className={`${styles.toggleLabel} ${!yearly ? styles.toggleLabelActive : ""}`}>
               Monthly
@@ -125,7 +121,7 @@ export default function PricingPage() {
             >
               <span
                 className={styles.toggleThumb}
-                style={{ transform: yearly ? "translateX(22px)" : "translateX(2px)" }}
+                style={{ transform: `translateY(-50%) translateX(${yearly ? "20px" : "2px"})` }}
               />
             </button>
             <span className={`${styles.toggleLabel} ${yearly ? styles.toggleLabelActive : ""}`}>
@@ -152,9 +148,15 @@ export default function PricingPage() {
               </div>
 
               <div className={styles.planPrice}>
-                <span className={styles.priceCurrency}>$</span>
+                {plan.price.monthly > 0 && (
+                  <span className={styles.priceCurrency}>$</span>
+                )}
                 <span className={styles.priceAmount}>
-                  {yearly ? plan.price.yearly : plan.price.monthly}
+                  {plan.price.monthly === 0
+                    ? "Free"
+                    : yearly
+                    ? plan.price.yearly
+                    : plan.price.monthly}
                 </span>
                 {plan.price.monthly > 0 && (
                   <span className={styles.pricePer}>/ mo</span>
@@ -162,7 +164,7 @@ export default function PricingPage() {
               </div>
               {yearly && plan.price.monthly > 0 && (
                 <p className={styles.priceBilled}>
-                  Billed annually (${(plan.price.yearly * 12).toLocaleString()}/yr)
+                  Billed annually (${plan.price.yearly * 12}/yr)
                 </p>
               )}
 
@@ -177,8 +179,8 @@ export default function PricingPage() {
                 {plan.features.map((f) => (
                   <li key={f} className={styles.featureItem}>
                     <span className={styles.featureCheck} aria-hidden="true">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M2 7L5.5 10.5L12 3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
                     {f}
@@ -187,8 +189,8 @@ export default function PricingPage() {
                 {plan.missing.map((f) => (
                   <li key={f} className={`${styles.featureItem} ${styles.featureItemMissing}`}>
                     <span className={styles.featureMinus} aria-hidden="true">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M3 7H11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M3 6h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                       </svg>
                     </span>
                     {f}
@@ -201,12 +203,12 @@ export default function PricingPage() {
 
         {/* FAQ */}
         <section className={styles.faqSection}>
-          <h2 className={styles.faqTitle}>Frequently Asked Questions</h2>
+          <h2 className={styles.faqTitle}>Frequently asked questions</h2>
           <div className={styles.faqList}>
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`${styles.faqItem} ${openFaq === i ? styles.faqItemOpen : ""}`}
+                className={styles.faqItem}
               >
                 <button
                   className={styles.faqQuestion}
@@ -219,8 +221,8 @@ export default function PricingPage() {
                     style={{ transform: openFaq === i ? "rotate(180deg)" : "rotate(0deg)" }}
                     aria-hidden="true"
                   >
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M3 5.5L7 9.5L11 5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
                 </button>
@@ -234,13 +236,12 @@ export default function PricingPage() {
 
         {/* Bottom CTA */}
         <section className={styles.bottomCta}>
-          <div className={styles.bottomCtaGlow} />
           <h2 className={styles.bottomCtaTitle}>Still have questions?</h2>
           <p className={styles.bottomCtaText}>
-            Reach out to us and we&apos;ll help you find the right plan.
+            Reach out and we&apos;ll help you find the right plan.
           </p>
-          <Link href="/register" className="btn btn-primary btn-lg">
-            Start for Free
+          <Link href="/register" className="btn btn-primary">
+            Start for free
           </Link>
         </section>
       </main>
