@@ -254,9 +254,9 @@ function SimulatedChart({
   switchStrategy = "rsi",
 }: SimulatedChartProps) {
   const isStatic = !!staticCandles;
-  const [candles, setCandles] = useState<Candle[]>(
-    () => staticCandles ?? generateSeries(basePrice, timeframe)
-  );
+  // Start empty so the server and the client's first render match (the random
+  // series uses Math.random()/Date.now() and must only run on the client).
+  const [candles, setCandles] = useState<Candle[]>(() => staticCandles ?? []);
   const baseRef = useRef(basePrice);
 
   // Sync to externally provided candles (real market data)
@@ -264,7 +264,8 @@ function SimulatedChart({
     if (staticCandles) setCandles(staticCandles);
   }, [staticCandles]);
 
-  // Regenerate when the timeframe changes
+  // Generate the initial series (and regenerate when the timeframe changes)
+  // on the client only, after mount.
   useEffect(() => {
     if (isStatic) return;
     setCandles(generateSeries(baseRef.current, timeframe));
@@ -364,6 +365,7 @@ function SimulatedChart({
   }, [showAlgo, strategy, params, candles, switchEnabled, switchThreshold, switchStrategy]);
 
   const view = useMemo(() => {
+    if (candles.length === 0) return null;
     const W = 1000;
     const H = 520;
     const padRight = 64;
@@ -491,6 +493,22 @@ function SimulatedChart({
 
   const up = "#22c55e";
   const down = "#ef4444";
+
+  // Before the client generates data (first paint / SSR), render an empty
+  // chart frame so server and client markup match and hydration is clean.
+  if (candles.length === 0 || !view) {
+    return (
+      <svg
+        viewBox="0 0 1000 520"
+        preserveAspectRatio="none"
+        width="100%"
+        height="100%"
+        role="img"
+        aria-label={ariaLabel}
+        style={{ display: "block" }}
+      />
+    );
+  }
 
   return (
     <svg
