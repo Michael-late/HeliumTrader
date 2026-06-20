@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import EducationHub from "@/components/EducationHub";
 import styles from "./page.module.css";
 
 const features = [
@@ -157,6 +158,13 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Interactive Education Hub */}
+      <section className={styles.learn} id="learn">
+        <div className="page-container">
+          <EducationHub />
         </div>
       </section>
 
