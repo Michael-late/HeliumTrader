@@ -35,8 +35,9 @@
 /* Layout */
 .layout {
   display: grid;
-  grid-template-columns: 1fr 280px;
+  grid-template-columns: 3fr 1fr;
   gap: 20px;
+  align-items: start;
 }
 
 /* Chart card */

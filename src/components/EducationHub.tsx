@@ -129,9 +129,9 @@ function sma(values: number[], period: number): (number | null)[] {
 }
 
 // --- Chart geometry ---
-const W = 760;
-const H = 340;
-const PAD = { top: 18, right: 14, bottom: 20, left: 14 };
+const W = 880;
+const H = 480;
+const PAD = { top: 20, right: 16, bottom: 24, left: 16 };
 const SPEEDS = [1, 2, 4];
 
 export default function EducationHub() {
