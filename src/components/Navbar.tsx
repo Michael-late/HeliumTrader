@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/simulate", label: "Simulate" },
   { href: "/reports", label: "Reports" },
+  { href: "/pricing", label: "Pricing" },
 ];
 
 export default function Navbar() {
@@ -78,8 +79,11 @@ export default function Navbar() {
         </div>
 
         <div className={styles.actions}>
-          <Link href="/dashboard" className="btn btn-primary btn-sm">
-            Launch App
+          <Link href="/login" className="btn btn-ghost btn-sm">
+            Sign In
+          </Link>
+          <Link href="/register" className="btn btn-primary btn-sm">
+            Get Started
           </Link>
 
           <button

@@ -95,11 +95,11 @@ export default function Home() {
           </p>
 
           <div className={styles.heroActions}>
-            <Link href="/dashboard" className="btn btn-primary btn-lg">
-              <span>🚀</span> Launch Dashboard
+            <Link href="/register" className="btn btn-primary btn-lg">
+              Get Started Free
             </Link>
             <Link href="/simulate" className="btn btn-secondary btn-lg">
-              <span>📈</span> Try Simulation
+              Try Simulation
             </Link>
           </div>
 
@@ -186,8 +186,11 @@ export default function Home() {
             simulation mode.
           </p>
           <div className={styles.heroActions} style={{ justifyContent: "center" }}>
-            <Link href="/simulate" className="btn btn-primary btn-lg">
-              Start Simulating Free
+            <Link href="/register" className="btn btn-primary btn-lg">
+              Create Free Account
+            </Link>
+            <Link href="/pricing" className="btn btn-secondary btn-lg">
+              View Pricing
             </Link>
           </div>
         </div>

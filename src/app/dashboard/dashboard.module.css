@@ -23,10 +23,39 @@
   margin-bottom: 20px;
 }
 
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .dashboardTitle {
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.03em;
+}
+
+.liveDot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-profit);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-full);
+  padding: 3px 10px 3px 8px;
+  position: relative;
+}
+
+.livePulse {
+  width: 6px;
+  height: 6px;
+  background: var(--color-profit);
+  border-radius: 50%;
+  animation: pulse-glow 1.5s infinite;
+  display: inline-block;
 }
 
 .dashboardMode {
@@ -114,6 +143,22 @@
   font-family: 'JetBrains Mono', monospace;
 }
 
+/* Mini bar */
+.miniBar {
+  height: 3px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+.miniBarFill {
+  height: 100%;
+  background: var(--gradient-profit);
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease;
+}
+
 /* Chart Area */
 .chartArea {
   display: flex;
@@ -155,6 +200,49 @@
   font-size: 1rem;
   font-weight: 700;
   font-family: 'JetBrains Mono', monospace;
+  transition: color var(--transition-fast);
+}
+
+.priceUp {
+  color: var(--color-profit) !important;
+}
+
+.priceDown {
+  color: var(--color-loss) !important;
+}
+
+/* Equity curve */
+.equityPanel {
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  overflow: hidden;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.equityHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.equityTitle {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.equityBody {
+  padding: 0 4px 4px;
+  height: 80px;
+}
+
+.equitySvg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .chartTimeframes {
@@ -317,6 +405,65 @@
   box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.15);
 }
 
+/* Strategy description */
+.strategyDesc {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* Progress bar */
+.progressBar {
+  padding: 0 20px 16px;
+}
+
+.progressLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.progressPct {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--accent-hover);
+}
+
+.progressTrack {
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  transition: width 0.1s ease;
+}
+
+/* Sim result */
+.simResult {
+  margin: 0 20px 16px;
+  padding: 10px 14px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  color: var(--color-profit);
+  font-weight: 500;
+}
+
+/* Running button state */
+.btnRunning {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 /* Action Buttons */
 .paramActions {
   display: flex;
@@ -394,11 +541,60 @@
   text-align: center;
   color: var(--text-tertiary);
   font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .emptyStateIcon {
-  font-size: 2rem;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+/* New trade flash */
+.tradeRowNew:first-child {
+  animation: tradeFlash 0.5s ease-out;
+}
+
+@keyframes tradeFlash {
+  0% { background: rgba(59, 130, 246, 0.12); }
+  100% { background: transparent; }
+}
+
+/* Quick links */
+.quickLinks {
+  display: flex;
+  gap: 8px;
+}
+
+.quickLink {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.quickLink:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+/* History header flex */
+.historyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* Responsive */
