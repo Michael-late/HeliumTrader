@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import TradingViewWidget from "@/components/TradingViewWidget";
+import CryptoTab from "@/components/CryptoTab";
 import styles from "./dashboard.module.css";
 
 // --- Types ---
@@ -28,14 +29,6 @@ interface Trade {
   price: string;
 }
 
-interface CryptoAsset {
-  symbol: string;
-  name: string;
-  tvSymbol: string;
-  price: number;
-  change: number;
-}
-
 const strategyLabels: Record<Strategy, string> = {
   sma_crossover: "SMA Crossover",
   rsi: "RSI",
@@ -58,17 +51,6 @@ const defaultParams: StrategyParams = {
 };
 
 const timeframes = ["1m", "5m", "15m", "1H", "4H", "1D"];
-
-const cryptoAssets: CryptoAsset[] = [
-  { symbol: "SUI", name: "Sui", tvSymbol: "BINANCE:SUIUSDT", price: 3.847, change: 2.14 },
-  { symbol: "BTC", name: "Bitcoin", tvSymbol: "BINANCE:BTCUSDT", price: 67420.5, change: 1.32 },
-  { symbol: "ETH", name: "Ethereum", tvSymbol: "BINANCE:ETHUSDT", price: 3521.8, change: -0.87 },
-  { symbol: "SOL", name: "Solana", tvSymbol: "BINANCE:SOLUSDT", price: 178.4, change: 3.56 },
-  { symbol: "BNB", name: "BNB", tvSymbol: "BINANCE:BNBUSDT", price: 596.2, change: 0.43 },
-  { symbol: "AVAX", name: "Avalanche", tvSymbol: "BINANCE:AVAXUSDT", price: 38.91, change: -1.22 },
-  { symbol: "DOGE", name: "Dogecoin", tvSymbol: "BINANCE:DOGEUSDT", price: 0.1612, change: 4.87 },
-  { symbol: "ARB", name: "Arbitrum", tvSymbol: "BINANCE:ARBUSDT", price: 1.043, change: -2.41 },
-];
 
 function generateEquityCurve(length: number, winRate: number) {
   const points = [10000];
@@ -102,6 +84,7 @@ export default function DashboardPage() {
   const [simDone, setSimDone] = useState(false);
   const [trades, setTrades] = useState<Trade[]>([]);
   const [tvSymbol, setTvSymbol] = useState("BINANCE:SUIUSDT");
+  const [pairLabel, setPairLabel] = useState("SUI / USDT");
   const [livePrice, setLivePrice] = useState(3.847);
   const [priceDir, setPriceDir] = useState<"up" | "down" | null>(null);
   const [portfolio, setPortfolio] = useState(10247.83);
@@ -221,8 +204,6 @@ export default function DashboardPage() {
     if (historyRef.current) historyRef.current.scrollTop = 0;
   }, [trades.length]);
 
-  const selectedAsset = cryptoAssets.find((a) => a.tvSymbol === tvSymbol);
-
   return (
     <>
       <Navbar />
@@ -290,7 +271,7 @@ export default function DashboardPage() {
                       priceDir === "up" ? styles.priceUp : priceDir === "down" ? styles.priceDown : ""
                     }`}
                   >
-                    {selectedAsset?.symbol ?? "SUI"} / USDT &nbsp;
+                    {pairLabel} &nbsp;
                     ${livePrice.toFixed(3)}
                   </span>
                   <span className={`badge ${priceDir === "down" ? "badge-loss" : "badge-profit"}`}>
@@ -584,29 +565,13 @@ export default function DashboardPage() {
             {/* Crypto Tab */}
             {sidebarTab === "crypto" && (
               <div className={styles.sidebarContent}>
-                <p className={styles.cryptoHint}>Select a pair to load it in the chart.</p>
-                <div className={styles.cryptoList}>
-                  {cryptoAssets.map((asset) => (
-                    <button
-                      key={asset.symbol}
-                      className={`${styles.cryptoRow} ${tvSymbol === asset.tvSymbol ? styles.cryptoRowActive : ""}`}
-                      onClick={() => setTvSymbol(asset.tvSymbol)}
-                    >
-                      <div className={styles.cryptoRowLeft}>
-                        <span className={styles.cryptoSymbol}>{asset.symbol}</span>
-                        <span className={styles.cryptoName}>{asset.name}</span>
-                      </div>
-                      <div className={styles.cryptoRowRight}>
-                        <span className={styles.cryptoPrice}>
-                          ${asset.price < 1 ? asset.price.toFixed(4) : asset.price.toLocaleString()}
-                        </span>
-                        <span className={`${styles.cryptoChange} ${asset.change >= 0 ? "profit" : "loss"}`}>
-                          {asset.change >= 0 ? "+" : ""}{asset.change}%
-                        </span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
+                <CryptoTab
+                  activeSymbol={tvSymbol}
+                  onSelect={(sym, label) => {
+                    setTvSymbol(sym);
+                    setPairLabel(label);
+                  }}
+                />
 
                 <div className={styles.paramDivider} />
 

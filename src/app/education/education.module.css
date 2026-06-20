@@ -1,0 +1,272 @@
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + 64px) 24px 100px;
+}
+
+/* Header */
+.header {
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 620px;
+}
+
+/* Quick nav */
+.quickNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 56px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.quickNavItem {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.quickNavItem:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+/* Algorithm list */
+.algoList {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.algoCard {
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+  transition: border-color var(--transition-base);
+}
+
+.algoCard:hover {
+  border-color: var(--border-hover);
+}
+
+.algoHead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.algoIndex {
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  line-height: 1;
+}
+
+.algoName {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 3px;
+}
+
+.algoTag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-hover);
+}
+
+.algoSummary {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.algoBlock {
+  margin-bottom: 20px;
+}
+
+.algoBlock:last-child {
+  margin-bottom: 0;
+}
+
+.blockLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+
+.blockText {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.algoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+/* Params */
+.paramList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.paramItem {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  background: var(--bg-card);
+}
+
+.paramName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.paramDesc {
+  font-size: 0.8125rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* Glossary */
+.glossary {
+  margin-top: 64px;
+  padding-top: 56px;
+  border-top: 1px solid var(--border-primary);
+}
+
+.glossaryTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+}
+
+.glossarySubtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 560px;
+}
+
+.glossaryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.glossaryCard {
+  background: var(--bg-card);
+  padding: 22px;
+}
+
+.glossaryTerm {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.glossaryDesc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* CTA */
+.cta {
+  margin-top: 64px;
+  padding: 48px 32px;
+  text-align: center;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+}
+
+.ctaTitle {
+  font-size: 1.625rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+}
+
+.ctaText {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+
+.ctaActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .algoCard { padding: 24px 20px; }
+  .algoGrid { grid-template-columns: 1fr; gap: 20px; }
+  .glossaryGrid { grid-template-columns: 1fr; }
+  .ctaActions { flex-direction: column; }
+  .ctaActions :global(.btn) { width: 100%; }
+}
