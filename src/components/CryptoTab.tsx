@@ -5,26 +5,27 @@ import useSWR from "swr";
 import styles from "./CryptoTab.module.css";
 
 export interface CryptoResult {
-  id: string;
-  symbol: string;
-  name: string;
-  image: string;
-  tvSymbol: string;
+  symbol: string; // Bybit symbol, e.g. "BTCUSDT"
+  base: string; // base asset, e.g. "BTC"
+  quote: string; // quote asset, e.g. "USDT"
+  name: string; // "BTC / USDT"
+  tvSymbol: string; // "BYBIT:BTCUSDT"
   price: number;
   change: number;
+  volume?: number;
 }
 
 interface CryptoTabProps {
   activeSymbol: string;
-  onSelect: (tvSymbol: string, label: string) => void;
+  onSelect: (coin: CryptoResult) => void;
 }
 
-const WATCHLIST_KEY = "helium_watchlist";
+const WATCHLIST_KEY = "helium_watchlist_bybit";
 
 const defaultWatchlist: CryptoResult[] = [
-  { id: "bitcoin", symbol: "BTC", name: "Bitcoin", image: "", tvSymbol: "BINANCE:BTCUSDT", price: 0, change: 0 },
-  { id: "ethereum", symbol: "ETH", name: "Ethereum", image: "", tvSymbol: "BINANCE:ETHUSDT", price: 0, change: 0 },
-  { id: "sui", symbol: "SUI", name: "Sui", image: "", tvSymbol: "BINANCE:SUIUSDT", price: 0, change: 0 },
+  { symbol: "BTCUSDT", base: "BTC", quote: "USDT", name: "BTC / USDT", tvSymbol: "BYBIT:BTCUSDT", price: 0, change: 0 },
+  { symbol: "ETHUSDT", base: "ETH", quote: "USDT", name: "ETH / USDT", tvSymbol: "BYBIT:ETHUSDT", price: 0, change: 0 },
+  { symbol: "SOLUSDT", base: "SOL", quote: "USDT", name: "SOL / USDT", tvSymbol: "BYBIT:SOLUSDT", price: 0, change: 0 },
 ];
 
 const fetcher = async (url: string) => {
@@ -100,25 +101,20 @@ export default function CryptoTab({ activeSymbol, onSelect }: CryptoTabProps) {
   };
 
   const renderRow = (coin: CryptoResult, inWatchlist: boolean) => {
-    const isActive = coin.tvSymbol === activeSymbol;
+    const isActive = coin.symbol === activeSymbol || coin.tvSymbol === activeSymbol;
     return (
       <div
-        key={coin.tvSymbol}
+        key={coin.symbol}
         className={`${styles.row} ${isActive ? styles.rowActive : ""}`}
       >
         <button
           className={styles.rowMain}
-          onClick={() => onSelect(coin.tvSymbol, `${coin.symbol} / USDT`)}
-          title={`Load ${coin.symbol} in chart`}
+          onClick={() => onSelect(coin)}
+          title={`Load ${coin.base} in chart`}
         >
-          {coin.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={coin.image || "/placeholder.svg"} alt="" className={styles.coinImg} />
-          ) : (
-            <span className={styles.coinImgFallback}>{coin.symbol.charAt(0)}</span>
-          )}
+          <span className={styles.coinImgFallback}>{coin.base.charAt(0)}</span>
           <span className={styles.rowLeft}>
-            <span className={styles.symbol}>{coin.symbol}</span>
+            <span className={styles.symbol}>{coin.base}</span>
             <span className={styles.name}>{coin.name}</span>
           </span>
           <span className={styles.rowRight}>
