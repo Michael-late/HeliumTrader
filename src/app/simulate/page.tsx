@@ -27,47 +27,6 @@ interface SimResult {
   aiReport: string;
 }
 
-function runMockSimulation(strategy: Strategy): SimResult {
-  const equityCurve: number[] = [10000];
-  const trades: SimResult["trades"] = [];
-  let equity = 10000;
-
-  for (let i = 1; i <= 120; i++) {
-    const change = (Math.random() - 0.44) * 150;
-    equity = Math.max(equity + change, equity * 0.95);
-    equityCurve.push(Math.round(equity * 100) / 100);
-
-    if (i % 8 === 0) {
-      const isBuy = Math.random() > 0.5;
-      const pnl = (Math.random() - 0.4) * 5;
-      trades.push({
-        type: isBuy ? "BUY" : "SELL",
-        price: 3.5 + Math.random() * 0.8,
-        time: `2026-06-${String(14 + Math.floor(i / 20)).padStart(2, "0")} ${String(9 + (i % 8)).padStart(2, "0")}:${String(Math.floor(Math.random() * 60)).padStart(2, "0")}`,
-        pnl: Math.round(pnl * 100) / 100,
-      });
-    }
-  }
-
-  const finalReturn = ((equity - 10000) / 10000) * 100;
-  const wins = trades.filter((t) => t.pnl > 0).length;
-  const winPct = Math.round((wins / trades.length) * 100);
-
-  return {
-    totalReturn: Math.round(finalReturn * 100) / 100,
-    winRate: Math.round((wins / trades.length) * 10000) / 100,
-    totalTrades: trades.length,
-    sharpeRatio: Math.round((1.2 + Math.random() * 1.2) * 100) / 100,
-    maxDrawdown: Math.round((3 + Math.random() * 5) * 100) / 100,
-    profitFactor: Math.round((1.1 + Math.random() * 0.8) * 100) / 100,
-    avgWin: Math.round((1.5 + Math.random() * 2) * 100) / 100,
-    avgLoss: Math.round((0.8 + Math.random() * 1.2) * 100) / 100,
-    equityCurve,
-    trades,
-    aiReport: `**Performance Summary**: Your ${strategyLabels[strategy]} strategy showed a **${finalReturn > 0 ? "positive" : "negative"}** return of **${Math.abs(Math.round(finalReturn * 100) / 100)}%** over the test period.\n\n**Key Observations**:\n• Win rate of ${winPct}% indicates ${wins / trades.length > 0.55 ? "a reliable" : "room for improvement in"} signal generation\n• Maximum drawdown remained controlled, suggesting good risk management\n• The Sharpe ratio indicates risk-adjusted returns above average\n\n**Recommendations**:\n• Consider tightening the stop-loss to reduce max drawdown further\n• The strategy performs best in trending markets — add a trend filter\n• Test with different timeframes to find optimal entry/exit windows`,
-  };
-}
-
 export default function SimulatePage() {
   const [strategy, setStrategy] = useState<Strategy>("sma_crossover");
   const [pair] = useState("SUI/USDC");
@@ -78,14 +37,56 @@ export default function SimulatePage() {
   const [stopLoss, setStopLoss] = useState(2);
   const [takeProfit, setTakeProfit] = useState(4);
 
-  const handleRun = useCallback(() => {
+  const handleRun = useCallback(async () => {
     setLoading(true);
     setResult(null);
-    setTimeout(() => {
-      setResult(runMockSimulation(strategy));
+    try {
+      const res = await fetch("http://localhost:8000/api/simulate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pair,
+          timeframe,
+          days,
+          strategy,
+          params: { stopLoss, takeProfit } // Include specific strategy params here in future
+        }),
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        alert(data.error);
+        setLoading(false);
+        return;
+      }
+
+      setResult({ ...data, aiReport: "🤖 Connecting to AI to analyze results..." });
+
+      // Call AI streaming endpoint
+      const aiRes = await fetch("/api/generate-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stats: data, strategy }),
+      });
+
+      if (!aiRes.body) throw new Error("No response body");
+      const reader = aiRes.body.getReader();
+      const decoder = new TextDecoder();
+      let reportText = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        reportText += decoder.decode(value);
+        setResult((prev) => (prev ? { ...prev, aiReport: reportText } : null));
+      }
+    } catch (e) {
+      console.error(e);
+      alert("Failed to run simulation. Ensure Python backend is running.");
+    } finally {
       setLoading(false);
-    }, 1600);
-  }, [strategy]);
+    }
+  }, [strategy, pair, timeframe, days, stopLoss, takeProfit]);
 
   const renderEquityCurve = (data: number[]) => {
     const min = Math.min(...data);
