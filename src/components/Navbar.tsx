@@ -13,6 +13,7 @@ const publicLinks = [
 
 const authLinks = [
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "/simulate", label: "Simulate" },
   { href: "/reports", label: "Reports" },
   { href: "/pricing", label: "Pricing" },
@@ -132,6 +133,12 @@ export default function Navbar() {
                       <rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.2" />
                     </svg>
                     Dashboard
+                  </Link>
+                  <Link href="/portfolio" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <path d="M2 11V7M5 11V5M8 11V8M11 11V3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                    </svg>
+                    Portfolio
                   </Link>
                   <Link href="/simulate" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">

@@ -257,15 +257,6 @@ export default function DashboardPage() {
         {/* Stats Bar */}
         <div className={styles.statsBar}>
           <div className={styles.statCard}>
-            <span className={styles.statLabel}>Portfolio</span>
-            <span className={`${styles.statValue} ${portfolioUp ? "profit" : "loss"}`}>
-              ${portfolio.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </span>
-            <span className={`${styles.statChange} ${portfolioUp ? "profit" : "loss"}`}>
-              {portfolioUp ? "+" : ""}{portfolioChange}%
-            </span>
-          </div>
-          <div className={styles.statCard}>
             <span className={styles.statLabel}>Win Rate</span>
             <span className={`${styles.statValue} profit`}>{winRate}%</span>
             <div className={styles.miniBar}>
@@ -329,7 +320,6 @@ export default function DashboardPage() {
                     activeTimeframe === "4H" ? "240" : "D"
                   }
                   theme="dark"
-                  height={420}
                 />
               </div>
             </div>

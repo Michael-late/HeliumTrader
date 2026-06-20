@@ -6,14 +6,12 @@ interface TradingViewWidgetProps {
   symbol?: string;
   interval?: string;
   theme?: "dark" | "light";
-  height?: number;
 }
 
 function TradingViewWidget({
   symbol = "BINANCE:SUIUSDT",
   interval = "60",
   theme = "dark",
-  height = 400,
 }: TradingViewWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scriptRef = useRef<HTMLScriptElement | null>(null);
@@ -63,7 +61,7 @@ function TradingViewWidget({
     <div
       className="tradingview-widget-container"
       ref={containerRef}
-      style={{ height: `${height}px`, width: "100%" }}
+      style={{ height: "100%", width: "100%" }}
     />
   );
 }
