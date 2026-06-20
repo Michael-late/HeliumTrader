@@ -2,6 +2,7 @@ import { streamText } from "ai";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { report } from "@/lib/db/schema";
+import { formatAiStreamError } from "@/lib/ai-error";
 import type { BacktestMetrics } from "@/lib/backtest";
 
 const MODEL = "openai/gpt-5-mini";
@@ -80,5 +81,7 @@ export async function POST(req: Request) {
     },
   });
 
-  return result.toUIMessageStreamResponse();
+  return result.toUIMessageStreamResponse({
+    onError: formatAiStreamError,
+  });
 }
