@@ -691,27 +691,49 @@
 
 .strategySelect {
   width: 100%;
-  padding: 8px 10px;
-  background: var(--bg-tertiary);
+  padding: 10px 36px 10px 12px;
+  background-color: var(--bg-tertiary);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5L6 8L9.5 4.5' stroke='%2360a5fa' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+  background-repeat: no-repeat, no-repeat;
+  background-position: right 12px center, center;
+  background-size: 12px, cover;
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: border-color var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 3.5L5 6.5L8 3.5' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  padding-right: 28px;
 }
 
-.strategySelect:hover,
-.strategySelect:focus {
+.strategySelect:hover {
   border-color: var(--border-hover);
+  background-color: var(--bg-card-hover);
+}
+
+.strategySelect:focus,
+.strategySelect:focus-visible {
   outline: none;
+  border-color: var(--accent-primary);
+  background-color: var(--bg-card-hover);
+  box-shadow:
+    0 0 0 3px rgba(var(--accent-primary-rgb), 0.18),
+    var(--shadow-glow);
+}
+
+.strategySelect option {
+  background-color: #0a0a0a;
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 8px;
 }
 
 .strategyDesc {
